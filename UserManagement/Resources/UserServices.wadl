@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://usermanagement.com/userService" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="UserServices">RestReference</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://usermanagement.com/userService" schemaLocation="../UserSchema.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/insert">
+         <method name="POST" soa:wsdlOperation="InsertUser">
+            <request>
+               <representation mediaType="application/json" element="cns:user" xmlns:cns="http://usermanagement.com/userService"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:user" xmlns:cns="http://usermanagement.com/userService"/>
+               <representation mediaType="application/xml" element="cns:user" xmlns:cns="http://usermanagement.com/userService"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/delete/{id}">
+         <method name="DELETE" soa:wsdlOperation="DeleteUser">
+            <request soa:paramElement="pns:id" xmlns:pns="http://usermanagement.com/userService">
+               <param name="id" style="template" soa:expression="$msg.request" type="xsd:integer"/>
+            </request>
+            <response status="204"/>
+         </method>
+      </resource>
+      <resource path="/update/{id}">
+         <method name="PUT" soa:wsdlOperation="UpdateUser">
+            <request>
+               <param name="id" style="template" soa:expression="$msg.request/ns0:user/ns0:id" type="xsd:integer"/>
+               <representation mediaType="application/json" element="cns:user" xmlns:cns="http://usermanagement.com/userService"/>
+            </request>
+            <response status="204"/>
+         </method>
+      </resource>
+      <resource path="/{name}">
+         <method name="GET" soa:wsdlOperation="GetUser">
+            <request soa:paramElement="pns:name" xmlns:pns="http://usermanagement.com/userService">
+               <param name="name" style="template" soa:expression="$msg.request" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:users" xmlns:cns="http://usermanagement.com/userService"/>
+               <representation mediaType="application/xml" element="cns:users" xmlns:cns="http://usermanagement.com/userService"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>
